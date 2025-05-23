@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { X, Github, Twitter, Linkedin, Instagram, Facebook } from 'lucide-react';
+import Image from 'next/image';
 
 const HackerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,8 +10,8 @@ const HackerMenu = () => {
   const [rotation, setRotation] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const menuRef = useRef(null);
-  const carouselRef = useRef(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const menuItems = [
     { 
@@ -65,31 +66,37 @@ const HackerMenu = () => {
     { icon: Facebook, url: 'https://facebook.com' }
   ];
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
     setIsDragging(true);
+    const clientX = 'touches' in e ? e.touches[0]?.clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0]?.clientY : e.clientY;
     setDragStart({
-      x: e.clientX || e.touches?.[0]?.clientX || 0,
-      y: e.clientY || e.touches?.[0]?.clientY || 0
+      x: clientX || 0,
+      y: clientY || 0
     });
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e: MouseEvent | TouchEvent) => {
     if (!isDragging) return;
     
-    const currentY = e.clientY || e.touches?.[0]?.clientY || 0;
-    const deltaY = currentY - dragStart.y;
-    const rotationDelta = deltaY * 0.5;
+    const currentY = 'touches' in e ? e.touches[0]?.clientY : e.clientY;
+    const currentX = 'touches' in e ? e.touches[0]?.clientX : e.clientX;
     
-    setRotation(prev => prev + rotationDelta);
-    setDragStart({
-      x: e.clientX || e.touches?.[0]?.clientX || 0,
-      y: currentY
-    });
-  };
+    if (currentY !== undefined && currentX !== undefined) {
+      const deltaY = currentY - dragStart.y;
+      const rotationDelta = deltaY * 0.5;
+      
+      setRotation(prev => prev + rotationDelta);
+      setDragStart({
+        x: currentX,
+        y: currentY
+      });
+    }
+  }, [isDragging, dragStart.y]);
 
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
 
   useEffect(() => {
     if (isDragging) {
@@ -105,9 +112,9 @@ const HackerMenu = () => {
         document.removeEventListener('touchend', handleMouseUp);
       };
     }
-  }, [isDragging, dragStart]);
+  }, [isDragging, handleMouseMove, handleMouseUp]);
 
-  const calculateItemPosition = (index) => {
+  const calculateItemPosition = (index: number) => {
     const angle = (index * (360 / menuItems.length)) + rotation;
     const radius = 140;
     const x = Math.cos((angle * Math.PI) / 180) * radius;
@@ -119,10 +126,16 @@ const HackerMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleNavigation = (path) => {
+  const handleNavigation = (path: string) => {
     // Navigate to the actual path
     window.location.href = path;
     setIsOpen(false);
+  };
+
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const target = e.target as HTMLImageElement;
+    const itemName = menuItems[selectedIndex]?.name || 'IMAGE';
+    target.src = `https://via.placeholder.com/400x600/1a1a1a/00f5ff?text=${itemName}`;
   };
 
   return (
@@ -253,13 +266,12 @@ const HackerMenu = () => {
             <div className="relative w-80 h-96 group">
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-lg blur-xl" />
               <div className="relative w-full h-full bg-black/40 backdrop-blur-md rounded-lg overflow-hidden">
-                <img 
+                <Image 
                   src={menuItems[selectedIndex]?.image || menuItems[0].image}
                   alt={menuItems[selectedIndex]?.name || menuItems[0].name}
-                  className="w-full h-full object-cover opacity-80"
-                  onError={(e) => {
-                    e.target.src = `https://via.placeholder.com/400x600/1a1a1a/00f5ff?text=${menuItems[selectedIndex]?.name || 'IMAGE'}`;
-                  }}
+                  fill
+                  className="object-cover opacity-80"
+                  onError={handleImageError}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">

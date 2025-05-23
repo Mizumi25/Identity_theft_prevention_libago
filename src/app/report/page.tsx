@@ -268,7 +268,7 @@ export default function ReportPage() {
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {reportData.map((report, index) => (
+            {reportData.map((report) => (
               <div 
                 key={report.id}
                 className="case-card bg-gray-800 border border-gray-600 rounded-lg p-6 cursor-pointer hover:bg-gray-700 transition-all transform hover:scale-105"

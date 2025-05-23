@@ -5,7 +5,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Shield, MapPin, Lock, Send, User, Mail, MessageSquare, Globe, AlertTriangle } from 'lucide-react';
+import { Shield, MapPin, Lock, Send, User, Mail, MessageSquare, AlertTriangle } from 'lucide-react';
 
 const ContactPage = () => {
   const containerRef = useRef(null);

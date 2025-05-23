@@ -12,14 +12,11 @@ import {
   CheckCircle, 
   XCircle, 
   Wifi, 
-  Smartphone, 
-  FileText,
-  BookOpen,
+  Smartphone,
   Settings,
   Zap,
   Target,
-  Bell,
-  Radar
+  Bell
 } from 'lucide-react';
 
 // Register GSAP plugins
@@ -40,7 +37,7 @@ const Resources = () => {
     const ctx = gsap.context(() => {
       // Hero - Library of Defense Animation
       const books = gsap.utils.toArray('.book-spine');
-      const bookCovers = gsap.utils.toArray('.book-cover');
+
       
       // Initial bookshelf parallax setup
       gsap.set('.bookshelf-container', { rotationY: -15, transformPerspective: 1000 });
@@ -161,8 +158,7 @@ const Resources = () => {
         }
       });
 
-      // Watchlist Updates Animation
-      const tickerItems = gsap.utils.toArray('.ticker-item');
+      
       
       // Continuous ticker animation
       gsap.to('.ticker-content', {

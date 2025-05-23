@@ -3,7 +3,6 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import Image from 'next/image';
 import Link from 'next/link';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -149,7 +148,7 @@ export default function Home() {
     });
 
     // Section animations
-    sectionsRef.current.forEach((section, index) => {
+    sectionsRef.current.forEach((section) => {
       if (section) {
         const elements = section.querySelectorAll('.animate-on-scroll');
         
@@ -204,7 +203,7 @@ export default function Home() {
     });
     
     // Section animations
-    sectionsRef.current.forEach((section, index) => {
+    sectionsRef.current.forEach((section) => {
       if (section) {
         gsap.fromTo(section.querySelectorAll('.animate-element'),
           { 
