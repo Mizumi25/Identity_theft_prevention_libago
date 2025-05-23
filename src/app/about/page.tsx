@@ -150,23 +150,29 @@ export default function About() {
     laptopScreen.rotation.x = -Math.PI * 0.08;
     laptopGroup.add(laptopScreen);
 
-    // Screen display with coding content
-    const screenDisplayGeometry = new THREE.PlaneGeometry(7, 4.5);
-    const canvas = document.createElement('canvas');
-    canvas.width = 1024;
-    canvas.height = 640;
-    const ctx = canvas.getContext('2d');
-    
-    // Draw terminal/coding background
-    ctx.fillStyle = '#0a0a0a';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    // Add terminal header
-    ctx.fillStyle = '#333333';
-    ctx.fillRect(0, 0, canvas.width, 40);
-    ctx.fillStyle = '#ffffff';
-    ctx.font = '14px Monaco, monospace';
-    ctx.fillText('Terminal - Identity Protection System', 20, 25);
+    /// Screen display with coding content
+const screenDisplayGeometry = new THREE.PlaneGeometry(7, 4.5);
+const canvas = document.createElement('canvas');
+canvas.width = 1024;
+canvas.height = 640;
+const ctx = canvas.getContext('2d');
+
+if (!ctx) {
+  throw new Error('Could not get canvas context');
+}
+
+// Draw terminal/coding background
+ctx.fillStyle = '#0a0a0a';
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+// Add terminal header
+ctx.fillStyle = '#333333';
+ctx.fillRect(0, 0, canvas.width, 40);
+ctx.fillStyle = '#ffffff';
+ctx.font = '14px Monaco, monospace';
+ctx.fillText('Terminal - Identity Protection System', 20, 25);
+
+
     
     // Add terminal dots
     ctx.fillStyle = '#ff5f56';
