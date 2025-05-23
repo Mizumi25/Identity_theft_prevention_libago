@@ -29,8 +29,8 @@ export default function Prevention() {
   const checklistRef = useRef(null)
   const toolsRef = useRef(null)
   
-  const [checkedItems, setCheckedItems] = useState({})
-  const [copiedPassword, setCopiedPassword] = useState(false)
+  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({})
+  const [copiedPassword, setCopiedPassword] = useState<string | false>(false)
 
   const passwordRequirements = [
     { text: 'At least 12 characters long', example: 'MyP@ssw0rd2024!', strength: 'strong' },
@@ -45,17 +45,17 @@ export default function Prevention() {
     {
       category: 'Sender Issues',
       flags: [
-        'Generic greetings like &quot;Dear Customer&quot;',
+        'Generic greetings like "Dear Customer"',
         'Email from public domains (gmail.com for bank emails)',
-        'Sender name doesn&apos;t match email address',
+        'Sender name doesn\'t match email address',
         'Multiple typos in sender information'
       ]
     },
     {
       category: 'Content Red Flags',
       flags: [
-        'Urgent language: &quot;Act now!&quot; &quot;Limited time!&quot;',
-        'Threats: &quot;Account will be closed&quot;',
+        'Urgent language: "Act now!" "Limited time!"',
+        'Threats: "Account will be closed"',
         'Grammar and spelling mistakes',
         'Requests for sensitive information via email'
       ]
@@ -63,7 +63,7 @@ export default function Prevention() {
     {
       category: 'Link & Attachment Issues',
       flags: [
-        'Suspicious URLs that don&apos;t match the company',
+        'Suspicious URLs that don\'t match the company',
         'Shortened links (bit.ly, tinyurl) from unknown sources',
         'Unexpected attachments, especially .exe, .zip files',
         'Links that redirect multiple times'
@@ -157,7 +157,7 @@ export default function Prevention() {
     }
   ]
 
-  const handleChecklistToggle = (category, index) => {
+  const handleChecklistToggle = (category: string, index: number) => {
     const key = `${category}-${index}`
     setCheckedItems(prev => ({
       ...prev,
@@ -255,7 +255,7 @@ export default function Prevention() {
     }
   }, [])
 
-  const renderStars = (rating) => {
+  const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
@@ -451,7 +451,7 @@ export default function Prevention() {
                 <h4 className="text-red-400 font-bold mb-2">🚨 Red Flags Identified:</h4>
                 <ul className="text-sm text-gray-300 space-y-1">
                   <li>• Generic greeting instead of your name</li>
-                  <li>• Grammar error: &quot;We has detected&quot;</li>
+                  <li>• Grammar error: "We has detected"</li>
                   <li>• Suspicious domain name</li>
                   <li>• Urgent threatening language</li>
                   <li>• Requests action via email link</li>
