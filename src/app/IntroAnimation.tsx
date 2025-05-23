@@ -1,26 +1,23 @@
-
-
-
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Shield, Eye, Zap, Lock } from 'lucide-react';
 
-const IntroAnimation = ({ onComplete }) => {
-  const [stage, setStage] = useState('scanning'); // scanning, verification, challenge, complete
+const IntroAnimation = ({ onComplete }: { onComplete: () => void }) => {
+  const [stage, setStage] = useState<'scanning' | 'verification' | 'challenge' | 'complete'>('scanning');
   const [progress, setProgress] = useState(0);
   const [isRobot, setIsRobot] = useState(false);
   const [showChallenge, setShowChallenge] = useState(false);
   const [glitchText, setGlitchText] = useState('INITIALIZING...');
 
-  const glitchTexts = [
+  const glitchTexts = useCallback(() => [
     'INITIALIZING...',
     'SCANNING BIOMETRICS...',
     'ANALYZING NEURAL PATTERNS...',
     'VERIFYING IDENTITY...',
     'CHECKING THREAT LEVEL...',
     'AUTHENTICATING USER...'
-  ];
+  ], []);
 
   useEffect(() => {
     // Progress animation
@@ -39,14 +36,14 @@ const IntroAnimation = ({ onComplete }) => {
 
     // Glitch text animation
     const textInterval = setInterval(() => {
-      setGlitchText(glitchTexts[Math.floor(Math.random() * glitchTexts.length)]);
+      setGlitchText(glitchTexts()[Math.floor(Math.random() * glitchTexts().length)]);
     }, 300);
 
     return () => {
       clearInterval(progressInterval);
       clearInterval(textInterval);
     };
-  }, [stage]);
+  }, [stage, glitchTexts]);
 
   useEffect(() => {
     if (stage === 'verification') {
@@ -57,7 +54,7 @@ const IntroAnimation = ({ onComplete }) => {
     }
   }, [stage]);
 
-  const handleRobotCheck = (robotStatus) => {
+  const handleRobotCheck = useCallback((robotStatus: boolean) => {
     setIsRobot(robotStatus);
     setTimeout(() => {
       setStage('complete');
@@ -65,7 +62,7 @@ const IntroAnimation = ({ onComplete }) => {
         onComplete();
       }, 2000);
     }, 1000);
-  };
+  }, [onComplete]);
 
   if (stage === 'complete') {
     return (

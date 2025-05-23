@@ -45,17 +45,17 @@ export default function Prevention() {
     {
       category: 'Sender Issues',
       flags: [
-        'Generic greetings like "Dear Customer"',
+        'Generic greetings like &quot;Dear Customer&quot;',
         'Email from public domains (gmail.com for bank emails)',
-        'Sender name doesn\'t match email address',
+        'Sender name doesn&apos;t match email address',
         'Multiple typos in sender information'
       ]
     },
     {
       category: 'Content Red Flags',
       flags: [
-        'Urgent language: "Act now!" "Limited time!"',
-        'Threats: "Account will be closed"',
+        'Urgent language: &quot;Act now!&quot; &quot;Limited time!&quot;',
+        'Threats: &quot;Account will be closed&quot;',
         'Grammar and spelling mistakes',
         'Requests for sensitive information via email'
       ]
@@ -63,7 +63,7 @@ export default function Prevention() {
     {
       category: 'Link & Attachment Issues',
       flags: [
-        'Suspicious URLs that don\'t match the company',
+        'Suspicious URLs that don&apos;t match the company',
         'Shortened links (bit.ly, tinyurl) from unknown sources',
         'Unexpected attachments, especially .exe, .zip files',
         'Links that redirect multiple times'
@@ -451,7 +451,7 @@ export default function Prevention() {
                 <h4 className="text-red-400 font-bold mb-2">🚨 Red Flags Identified:</h4>
                 <ul className="text-sm text-gray-300 space-y-1">
                   <li>• Generic greeting instead of your name</li>
-                  <li>• Grammar error: "We has detected"</li>
+                  <li>• Grammar error: &quot;We has detected&quot;</li>
                   <li>• Suspicious domain name</li>
                   <li>• Urgent threatening language</li>
                   <li>• Requests action via email link</li>
@@ -583,7 +583,7 @@ export default function Prevention() {
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold mb-8">Take Action Today</h2>
           <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
-            Don't wait until it's too late. Start protecting your identity with these immediate actions.
+            Don&apos;t wait until it&apos;s too late. Start protecting your identity with these immediate actions.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">

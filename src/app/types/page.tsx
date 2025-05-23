@@ -19,6 +19,7 @@ import {
   Activity
 } from 'lucide-react';
 import * as THREE from 'three';
+import Image from 'next/image';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -62,7 +63,7 @@ const Types = () => {
     },
     {
       title: "CHILD THEFT",
-      description: "Children's clean credit histories targeted for fraud",
+      description: "Children&apos;s clean credit histories targeted for fraud",
       icon: Baby,
       color: "#8b5cf6" // violet-500
     },
@@ -127,7 +128,9 @@ const Types = () => {
 
       return () => {
         window.removeEventListener('resize', handleResize);
-        container.removeChild(renderer.domElement);
+        if (container.contains(renderer.domElement)) {
+          container.removeChild(renderer.domElement);
+        }
       };
     };
 
@@ -235,11 +238,12 @@ const Types = () => {
     return () => {
       ctx.revert();
       // Clean up Three.js
-      if (threeJsContainerRef.current && rendererRef.current?.domElement) {
-        threeJsContainerRef.current.removeChild(rendererRef.current.domElement);
+      const container = threeJsContainerRef.current;
+      if (container && rendererRef.current?.domElement && container.contains(rendererRef.current.domElement)) {
+        container.removeChild(rendererRef.current.domElement);
       }
     };
-  }, []);
+  }, [maskRefs, revealRefs]);
 
   return (
     <div ref={containerRef} className="min-h-screen bg-gray-900 text-white overflow-x-hidden">
@@ -296,6 +300,8 @@ const Types = () => {
     
       {/* Financial Theft Section */}
       <section className="financial-section min-h-screen flex items-center justify-center bg-gray-900 relative py-20">
+             {/* Financial Theft Section */}
+      
         <div className="container mx-auto px-8">
           <div className="grid grid-cols-2 gap-16 items-center">
             <div>
@@ -320,9 +326,11 @@ const Types = () => {
             </div>
             
             <div className="relative h-96">
-              <img 
+              <Image 
                 src="/api/placeholder/400/250" 
                 alt="Financial Security" 
+                width={400}
+                height={250}
                 className="absolute top-0 left-0 w-full h-full object-cover rounded-lg opacity-20"
               />
               <div className="absolute inset-0 flex items-center justify-center">
@@ -345,9 +353,11 @@ const Types = () => {
         <div className="container mx-auto px-8">
           <div className="grid grid-cols-2 gap-16 items-center">
             <div className="relative h-96">
-              <img 
+              <Image 
                 src="/api/placeholder/450/300" 
                 alt="Medical Records" 
+                width={450}
+                height={300}
                 className="absolute top-0 left-0 w-full h-full object-cover rounded-lg opacity-20"
               />
               <div className="absolute inset-0 flex items-center justify-center">
@@ -394,7 +404,7 @@ const Types = () => {
             <div>
               <h2 className="text-5xl font-bold mb-8">CHILD IDENTITY THEFT</h2>
               <p className="text-xl text-gray-400 mb-6">
-                Children's clean credit histories make them attractive targets for long-term fraud.
+                Children&apos;s clean credit histories make them attractive targets for long-term fraud.
               </p>
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
@@ -407,15 +417,17 @@ const Types = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <Lock className="w-6 h-6 text-gray-400" />
-                  <span>Monitor children's personal information</span>
+                  <span>Monitor children&apos;s personal information</span>
                 </div>
               </div>
             </div>
             
             <div className="relative h-96">
-              <img 
+              <Image 
                 src="/api/placeholder/400/300" 
                 alt="Child Protection" 
+                width={400}
+                height={300}
                 className="absolute top-0 left-0 w-full h-full object-cover rounded-lg opacity-20"
               />
               <div className="absolute inset-0 flex items-center justify-center">
@@ -447,14 +459,18 @@ const Types = () => {
                 <Camera className="w-6 h-6" />
                 <span className="font-mono">REC</span>
               </div>
-              <img 
+              <Image 
                 src="/api/placeholder/400/300" 
                 alt="Innocent Person" 
+                width={400}
+                height={300}
                 className="face-innocent absolute top-0 left-0 w-full h-full object-cover rounded-lg"
               />
-              <img 
+              <Image 
                 src="/api/placeholder/400/300" 
                 alt="Criminal Mugshot" 
+                width={400}
+                height={300}
                 className="face-criminal absolute top-0 left-0 w-full h-full object-cover rounded-lg opacity-0"
               />
             </div>
