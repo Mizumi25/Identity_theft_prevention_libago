@@ -9,10 +9,10 @@ import Image from 'next/image';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
-  const heroRef = useRef(null);
-  const sectionsRef = useRef([]);
-  const statsCounterRef = useRef([]);
-  const videoRef = useRef(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const sectionsRef = useRef<HTMLElement[]>([]);
+  const statsCounterRef = useRef<HTMLDivElement[]>([]);
+  const videoRef = useRef<HTMLVideoElement>(null);
   
   useEffect(() => {
     const video = videoRef.current;
@@ -36,10 +36,12 @@ export default function Home() {
 
     // Matrix-style text animation
     const createMatrixEffect = () => {
-      const canvas = document.getElementById('matrix-bg');
+      const canvas = document.getElementById('matrix-bg') as HTMLCanvasElement;
       if (!canvas) return;
       
       const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       
@@ -181,7 +183,7 @@ export default function Home() {
     // Counter animation
     statsCounterRef.current.forEach((counter) => {
       if (counter) {
-        const target = parseInt(counter.dataset.target);
+        const target = parseInt(counter.dataset.target || '0');
         const suffix = counter.dataset.suffix || '';
         
         ScrollTrigger.create({
@@ -194,7 +196,9 @@ export default function Home() {
               ease: "power2.out",
               snap: { innerText: 1 },
               onUpdate: function() {
-                counter.innerText = Math.ceil(counter.innerText) + suffix;
+                if (counter) {
+                  counter.innerText = Math.ceil(Number(counter.innerText)) + suffix;
+                }
               }
             });
           }
@@ -244,11 +248,11 @@ export default function Home() {
 
     // Parallax scrolling
     gsap.utils.toArray(".parallax-element").forEach((element) => {
-      gsap.to(element, {
+      gsap.to(element as Element, {
         yPercent: -50,
         ease: "none",
         scrollTrigger: {
-          trigger: element,
+          trigger: element as Element,
           start: "top bottom",
           end: "bottom top",
           scrub: 1
@@ -263,13 +267,13 @@ export default function Home() {
     };
   }, []);
 
-  const addToRefs = (el) => {
+  const addToRefs = (el: HTMLElement | null) => {
     if (el && !sectionsRef.current.includes(el)) {
       sectionsRef.current.push(el);
     }
   };
 
-  const addToCounterRefs = (el) => {
+  const addToCounterRefs = (el: HTMLDivElement | null) => {
     if (el && !statsCounterRef.current.includes(el)) {
       statsCounterRef.current.push(el);
     }
@@ -618,7 +622,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Final CTA Section */}
+   {/* Final CTA Section */}
       <section ref={addToRefs} className="py-24 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="animate-on-scroll border border-indigo-700 bg-indigo-900/10 p-12 rounded-xl">
