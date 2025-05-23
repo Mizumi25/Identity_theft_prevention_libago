@@ -54,14 +54,14 @@ const recoveryStages = [
 ];
 
 export default function ReportPage() {
-  const containerRef = useRef(null);
-  const heroRef = useRef(null);
-  const magnifyingGlassRef = useRef(null);
-  const filesRef = useRef(null);
-  const terminalRef = useRef(null);
-  const timelineRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const magnifyingGlassRef = useRef<HTMLDivElement>(null);
+  const filesRef = useRef<HTMLDivElement>(null);
+  const terminalRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
   
-  const [selectedReport, setSelectedReport] = useState(null);
+  const [selectedReport, setSelectedReport] = useState<typeof reportData[0] | null>(null);
   const [terminalText, setTerminalText] = useState('');
   const [isBreached, setIsBreached] = useState(false);
 
@@ -121,7 +121,7 @@ export default function ReportPage() {
     });
 
     // Terminal Breach Animation
-    let terminalTl;
+    let terminalTl: gsap.core.Timeline | null = null;
     ScrollTrigger.create({
       trigger: terminalRef.current,
       start: 'top 60%',
@@ -130,7 +130,7 @@ export default function ReportPage() {
         let currentText = '';
         
         terminalLines.forEach((line, index) => {
-          terminalTl.to({}, {
+          terminalTl!.to({}, {
             duration: 0.5,
             onUpdate: function() {
               if (this.progress() === 1) {
@@ -183,7 +183,7 @@ export default function ReportPage() {
     };
   }, []);
 
-  const handleReportClick = (report) => {
+  const handleReportClick = (report: typeof reportData[0]) => {
     setSelectedReport(report);
     
     gsap.timeline()
