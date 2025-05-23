@@ -354,27 +354,34 @@ ctx.fillText('Terminal - Identity Protection System', 20, 25);
         }
         
         // Check if USB is connected
-        if (easeProgress > 0.85 && !isConnected) {
-          setIsConnected(true);
-          
-          // Find screen and enhance it
-          const screenDisplay = laptopRef.current.children.find(child => 
-            child.material && child.material.map
-          );
-          if (screenDisplay) {
-            screenDisplay.material.emissive.setHex(0x0044ff);
-            screenDisplay.material.emissiveIntensity = 0.3;
-          }
-          
-          // LED becomes brighter when connected
-          const ledMesh = usbRef.current.children.find(child => 
-            child.material && child.material.emissive && child.geometry.type === 'SphereGeometry'
-          );
-          if (ledMesh) {
-            ledMesh.material.emissiveIntensity = 1.5;
-            ledMesh.material.emissive.setHex(0x00ffff);
-          }
-        }
+
+if (easeProgress > 0.85 && !isConnected) {
+  setIsConnected(true);
+  
+  // Find screen and enhance it
+  const screenDisplay = laptopRef.current.children.find(child => {
+    const mesh = child as THREE.Mesh;
+    return mesh.material && 'map' in mesh.material;
+  });
+  
+  if (screenDisplay) {
+    const mesh = screenDisplay as THREE.Mesh<THREE.BufferGeometry, THREE.MeshPhongMaterial>;
+    mesh.material.emissive.setHex(0x0044ff);
+    mesh.material.emissiveIntensity = 0.3;
+  }
+  
+  // LED becomes brighter when connected
+  const ledMesh = usbRef.current.children.find(child => {
+    const mesh = child as THREE.Mesh;
+    return mesh.material && 'emissive' in mesh.material && mesh.geometry.type === 'SphereGeometry';
+  });
+  
+  if (ledMesh) {
+    const mesh = ledMesh as THREE.Mesh<THREE.BufferGeometry, THREE.MeshPhongMaterial>;
+    mesh.material.emissiveIntensity = 1.5;
+    mesh.material.emissive.setHex(0x00ffff);
+  }
+}
       }
       
       renderer.render(scene, camera);
