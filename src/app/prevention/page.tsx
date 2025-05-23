@@ -451,7 +451,7 @@ export default function Prevention() {
                 <h4 className="text-red-400 font-bold mb-2">🚨 Red Flags Identified:</h4>
                 <ul className="text-sm text-gray-300 space-y-1">
                   <li>• Generic greeting instead of your name</li>
-                  <li>• Grammar error: "We has detected"</li>
+                  <li>• Grammar error: &quot;We has detected&quot;</li>
                   <li>• Suspicious domain name</li>
                   <li>• Urgent threatening language</li>
                   <li>• Requests action via email link</li>
