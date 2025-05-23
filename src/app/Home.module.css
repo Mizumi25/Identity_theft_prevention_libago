@@ -1,0 +1,15 @@
+
+
+.animation::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/lottie/istockphoto-1139630778-640_adpp_is.mp4_1747896850263.mp4.lottie.json');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1;
+}
