@@ -1,20 +1,21 @@
-
-
-
-
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Shield, MapPin, Lock, Send, User, Mail, MessageSquare, AlertTriangle } from 'lucide-react';
 
 const ContactPage = () => {
-  const containerRef = useRef(null);
-  const heroRef = useRef(null);
-  const mapRef = useRef(null);
-  const messagesRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const mapRef = useRef<HTMLElement>(null);
+  const messagesRef = useRef<HTMLElement>(null);
   const [formProgress, setFormProgress] = useState(0);
   const [mapProgress, setMapProgress] = useState(0);
   const [messageProgress, setMessageProgress] = useState(0);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
 
   // Mock data for attack locations
   const attackLocations = [
@@ -78,6 +79,21 @@ const ContactPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle form submission here
+    console.log('Form submitted:', formData);
+    // Add your form submission logic
+  };
+
   // Code lines animation for hero
   const codeLines = [
     'const identity = new SecureForm();',
@@ -138,7 +154,7 @@ const ContactPage = () => {
                 </h1>
               </div>
 
-              <div className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Name Field */}
                 <div 
                   className="relative"
@@ -151,7 +167,11 @@ const ContactPage = () => {
                   <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                   <input
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
                     placeholder="Full Name"
+                    required
                     className="w-full bg-white bg-opacity-10 border border-white border-opacity-30 rounded-lg px-10 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-colors"
                   />
                 </div>
@@ -168,7 +188,11 @@ const ContactPage = () => {
                   <Mail className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     placeholder="Email Address"
+                    required
                     className="w-full bg-white bg-opacity-10 border border-white border-opacity-30 rounded-lg px-10 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-colors"
                   />
                 </div>
@@ -185,7 +209,11 @@ const ContactPage = () => {
                   <MessageSquare className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                   <textarea
                     rows={4}
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
                     placeholder="Your Message"
+                    required
                     className="w-full bg-white bg-opacity-10 border border-white border-opacity-30 rounded-lg px-10 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-colors resize-none"
                   ></textarea>
                 </div>
@@ -203,7 +231,7 @@ const ContactPage = () => {
                   <Send className="w-5 h-5" />
                   Send Secure Message
                 </button>
-                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -275,8 +303,9 @@ const ContactPage = () => {
 
               {/* Radar Sweep Effect */}
               <div 
-                className="absolute inset-0 bg-gradient-conic from-transparent via-blue-500 to-transparent opacity-20 rounded-full"
+                className="absolute inset-0 opacity-20 rounded-full"
                 style={{
+                  background: `conic-gradient(from 0deg, transparent 0%, rgba(59, 130, 246, 0.5) 10%, transparent 20%)`,
                   opacity: mapProgress * 0.3,
                   transform: `rotate(${mapProgress * 360}deg)`,
                   transition: 'all 0.1s linear'
