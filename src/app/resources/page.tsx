@@ -25,11 +25,11 @@ if (typeof window !== 'undefined') {
 }
 
 const Resources = () => {
-  const containerRef = useRef(null);
-  const heroRef = useRef(null);
-  const toolkitRef = useRef(null);
-  const comparisonRef = useRef(null);
-  const watchlistRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const toolkitRef = useRef<HTMLElement>(null);
+  const comparisonRef = useRef<HTMLElement>(null);
+  const watchlistRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -130,33 +130,35 @@ const Resources = () => {
       });
 
       // Secure vs Insecure Split Animation
-      const leftSide = comparisonRef.current?.querySelector('.insecure-side');
-      const rightSide = comparisonRef.current?.querySelector('.secure-side');
+      const leftSide = comparisonRef.current?.querySelector('.insecure-side') as HTMLElement;
+      const rightSide = comparisonRef.current?.querySelector('.secure-side') as HTMLElement;
       
-      ScrollTrigger.create({
-        trigger: comparisonRef.current,
-        start: 'top center',
-        end: 'bottom center',
-        scrub: 1,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          
-          // Transition effect
-          gsap.to(leftSide as Element, {
-            x: -progress * 100,
-            opacity: 1 - progress * 0.5,
-            filter: `blur(${progress * 5}px)`,
-            duration: 0.3
-          });
-          
-          gsap.to(rightSide as Element, {
-            x: progress * 100,
-            opacity: 0.5 + progress * 0.5,
-            filter: `blur(${(1 - progress) * 5}px)`,
-            duration: 0.3
-          });
-        }
-      });
+      if (leftSide && rightSide) {
+        ScrollTrigger.create({
+          trigger: comparisonRef.current,
+          start: 'top center',
+          end: 'bottom center',
+          scrub: 1,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            
+            // Transition effect
+            gsap.to(leftSide, {
+              x: -progress * 100,
+              opacity: 1 - progress * 0.5,
+              filter: `blur(${progress * 5}px)`,
+              duration: 0.3
+            });
+            
+            gsap.to(rightSide, {
+              x: progress * 100,
+              opacity: 0.5 + progress * 0.5,
+              filter: `blur(${(1 - progress) * 5}px)`,
+              duration: 0.3
+            });
+          }
+        });
+      }
 
       
       
