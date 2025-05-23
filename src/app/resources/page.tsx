@@ -36,7 +36,7 @@ const Resources = () => {
 
     const ctx = gsap.context(() => {
       // Hero - Library of Defense Animation
-      const books = gsap.utils.toArray('.book-spine');
+      const books = gsap.utils.toArray('.book-spine') as Element[];
 
       
       // Initial bookshelf parallax setup
@@ -60,7 +60,7 @@ const Resources = () => {
           books.forEach((book, i) => {
             const delay = i * 0.1;
             const bookProgress = Math.max(0, progress - delay);
-            gsap.to(book, {
+            gsap.to(book as Element, {
               z: bookProgress * 50,
               rotationY: 5 + bookProgress * 10,
               duration: 0.3
@@ -89,7 +89,7 @@ const Resources = () => {
       });
 
       // Digital Toolkit Animation
-      const toolIcons = gsap.utils.toArray('.tool-icon');
+      const toolIcons = gsap.utils.toArray('.tool-icon') as Element[];
       
       ScrollTrigger.create({
         trigger: toolkitRef.current,
@@ -97,7 +97,7 @@ const Resources = () => {
         end: 'bottom 20%',
         onEnter: () => {
           toolIcons.forEach((icon, i) => {
-            gsap.fromTo(icon, {
+            gsap.fromTo(icon as Element, {
               y: -200,
               rotation: Math.random() * 360,
               scale: 0
@@ -142,14 +142,14 @@ const Resources = () => {
           const progress = self.progress;
           
           // Transition effect
-          gsap.to(leftSide, {
+          gsap.to(leftSide as Element, {
             x: -progress * 100,
             opacity: 1 - progress * 0.5,
             filter: `blur(${progress * 5}px)`,
             duration: 0.3
           });
           
-          gsap.to(rightSide, {
+          gsap.to(rightSide as Element, {
             x: progress * 100,
             opacity: 0.5 + progress * 0.5,
             filter: `blur(${(1 - progress) * 5}px)`,
@@ -246,7 +246,7 @@ const Resources = () => {
             ))}
             
             {/* Featured Book */}
-            <div className="featured-book absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-64 bg-gradient-to-br from-gold-400 to-yellow-600 rounded-lg shadow-2xl transform-gpu">
+            <div className="featured-book absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-64 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg shadow-2xl transform-gpu">
               <div className="p-6 h-full flex flex-col justify-between">
                 <div>
                   <Shield className="w-12 h-12 text-white mb-4" />
@@ -263,17 +263,17 @@ const Resources = () => {
         {/* Hero Content */}
         <div className="hero-content relative z-10 text-center max-w-4xl mx-auto px-6">
           <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            
+            Your Defense Arsenal
           </h1>
           <p className="text-xl text-gray-300 mb-8">
-            
+            Comprehensive resources and tools to protect your digital identity
           </p>
         </div>
       </section>
 
       {/* Digital Toolkit Section */}
       <section ref={toolkitRef} className="relative min-h-screen py-20 bg-gradient-to-b from-gray-900 to-black">
-        <div className="container mx-auto px-6">
+        <div className="toolkit-content container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold mb-6 text-white">Digital Toolkit</h2>
             <p className="text-xl text-gray-400">Essential tools for complete protection</p>
