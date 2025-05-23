@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
@@ -31,8 +31,33 @@ const Resources = () => {
   const comparisonRef = useRef<HTMLElement>(null);
   const watchlistRef = useRef<HTMLElement>(null);
 
+  // Memoize static arrays to prevent unnecessary re-renders
+  const resources = useMemo(() => [
+    { title: 'Identity Protection Guide', icon: Shield, color: 'bg-blue-600' },
+    { title: 'Secure Password Handbook', icon: Lock, color: 'bg-green-600' },
+    { title: '2FA Setup Manual', icon: Key, color: 'bg-purple-600' },
+    { title: 'Privacy Best Practices', icon: Eye, color: 'bg-red-600' },
+    { title: 'Digital Security Toolkit', icon: Settings, color: 'bg-yellow-600' },
+    { title: 'Fraud Prevention Tips', icon: AlertTriangle, color: 'bg-orange-600' }
+  ], []);
+
+  const tools = useMemo(() => [
+    { name: 'VPN Service', icon: Wifi, description: 'Secure your connection' },
+    { name: 'Password Manager', icon: Lock, description: 'Store passwords safely' },
+    { name: '2FA Authenticator', icon: Smartphone, description: 'Two-factor authentication' },
+    { name: 'Identity Monitor', icon: Eye, description: 'Track your data' }
+  ], []);
+
+  const alerts = useMemo(() => [
+    'New phishing campaign targeting banking customers',
+    'Data breach affects 2.5M users - check your accounts',
+    'Social engineering scam using AI voice cloning',
+    'Cryptocurrency wallet vulnerabilities discovered',
+    'Identity theft reports increase 25% this quarter'
+  ], []);
+
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || !containerRef.current) return;
 
     const ctx = gsap.context(() => {
       // Hero - Library of Defense Animation
@@ -159,8 +184,6 @@ const Resources = () => {
           }
         });
       }
-
-      
       
       // Continuous ticker animation
       gsap.to('.ticker-content', {
@@ -197,34 +220,10 @@ const Resources = () => {
         }
       });
 
-    }, containerRef.current);
+    }, containerRef.current); // Fixed: Pass the actual HTMLElement, not null
 
     return () => ctx.revert();
   }, []);
-
-  const resources = [
-    { title: 'Identity Protection Guide', icon: Shield, color: 'bg-blue-600' },
-    { title: 'Secure Password Handbook', icon: Lock, color: 'bg-green-600' },
-    { title: '2FA Setup Manual', icon: Key, color: 'bg-purple-600' },
-    { title: 'Privacy Best Practices', icon: Eye, color: 'bg-red-600' },
-    { title: 'Digital Security Toolkit', icon: Settings, color: 'bg-yellow-600' },
-    { title: 'Fraud Prevention Tips', icon: AlertTriangle, color: 'bg-orange-600' }
-  ];
-
-  const tools = [
-    { name: 'VPN Service', icon: Wifi, description: 'Secure your connection' },
-    { name: 'Password Manager', icon: Lock, description: 'Store passwords safely' },
-    { name: '2FA Authenticator', icon: Smartphone, description: 'Two-factor authentication' },
-    { name: 'Identity Monitor', icon: Eye, description: 'Track your data' }
-  ];
-
-  const alerts = [
-    'New phishing campaign targeting banking customers',
-    'Data breach affects 2.5M users - check your accounts',
-    'Social engineering scam using AI voice cloning',
-    'Cryptocurrency wallet vulnerabilities discovered',
-    'Identity theft reports increase 25% this quarter'
-  ];
 
   return (
     <div ref={containerRef} className="bg-gray-900 text-white overflow-hidden">
