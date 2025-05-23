@@ -8,17 +8,18 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 export default function About() {
-  const mountRef = useRef(null);
-  const sceneRef = useRef();
-  const rendererRef = useRef();
-  const cameraRef = useRef();
-  const usbRef = useRef();
-  const laptopRef = useRef();
+  const mountRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const usbRef = useRef<THREE.Group | null>(null);
+  const laptopRef = useRef<THREE.Group | null>(null);
   const [scrollY, setScrollY] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    if (!mountRef.current) return;
+    const mount = mountRef.current;
+    if (!mount) return;
 
     // Scene setup
     const scene = new THREE.Scene();
@@ -36,7 +37,7 @@ export default function About() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    mountRef.current.appendChild(renderer.domElement);
+    mount.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
     // Enhanced lighting setup
@@ -279,6 +280,7 @@ export default function About() {
     laptopRef.current = laptopGroup;
 
     // Animation loop
+    
     const animate = () => {
       requestAnimationFrame(animate);
       
@@ -382,9 +384,13 @@ export default function About() {
 
     // Handle resize
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      if (cameraRef.current) {
+        cameraRef.current.aspect = window.innerWidth / window.innerHeight;
+        cameraRef.current.updateProjectionMatrix();
+      }
+      if (rendererRef.current) {
+        rendererRef.current.setSize(window.innerWidth, window.innerHeight);
+      }
     };
     
     window.addEventListener('resize', handleResize);
@@ -392,10 +398,12 @@ export default function About() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
-      if (mountRef.current && renderer.domElement) {
-        mountRef.current.removeChild(renderer.domElement);
+      if (mount && rendererRef.current?.domElement) {
+        mount.removeChild(rendererRef.current.domElement);
       }
-      renderer.dispose();
+      if (rendererRef.current) {
+        rendererRef.current.dispose();
+      }
     };
   }, [scrollY, isConnected]);
 
