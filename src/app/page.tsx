@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Link from 'next/link';
+import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,7 +14,6 @@ export default function Home() {
   const statsCounterRef = useRef([]);
   const videoRef = useRef(null);
   
-    
   useEffect(() => {
     const video = videoRef.current;
     
@@ -385,9 +385,11 @@ export default function Home() {
             <div className="animate-on-scroll group">
               <div className="bg-black border border-gray-700 overflow-hidden hover:border-gray-500 transition-all duration-500 transform hover:scale-105">
                 <div className="relative h-48 overflow-hidden">
-                  <img 
+                  <Image
                     src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=200&fit=crop" 
                     alt="Cybersecurity threat" 
+                    width={400}
+                    height={200}
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -411,9 +413,11 @@ export default function Home() {
             <div className="animate-on-scroll group">
               <div className="bg-black border border-gray-700 overflow-hidden hover:border-gray-500 transition-all duration-500 transform hover:scale-105">
                 <div className="relative h-48 overflow-hidden">
-                  <img 
+                  <Image
                     src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop" 
                     alt="Financial security" 
+                    width={400}
+                    height={200}
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -437,9 +441,11 @@ export default function Home() {
             <div className="animate-on-scroll group">
               <div className="bg-black border border-gray-700 overflow-hidden hover:border-gray-500 transition-all duration-500 transform hover:scale-105">
                 <div className="relative h-48 overflow-hidden">
-                  <img 
+                  <Image
                     src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=200&fit=crop" 
                     alt="E-commerce security" 
+                    width={400}
+                    height={200}
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -472,7 +478,7 @@ export default function Home() {
                 YOUR DIGITAL ARMOR
               </h2>
               <p className="animate-on-scroll text-xl text-gray-300 mb-8 leading-relaxed">
-                Don't be another statistic. Our comprehensive protection strategies are your weapon against identity thieves and cybercriminals.
+                Don&apos;t be another statistic. Our comprehensive protection strategies are your weapon against identity thieves and cybercriminals.
               </p>
               
               <div className="space-y-6">
@@ -518,9 +524,11 @@ export default function Home() {
             
             <div className="relative">
               <div className="animate-on-scroll parallax-element">
-                <img 
+                <Image
                   src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=500&h=400&fit=crop" 
                   alt="Digital security shield" 
+                  width={500}
+                  height={400}
                   className="w-full h-96 object-cover rounded-lg"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-lg"></div>

@@ -443,7 +443,7 @@ export default function About() {
           </h3>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light">
             Every digital connection carries risk. Every data breach changes lives. 
-            We're here to ensure your digital identity remains secure in an increasingly connected world.
+            We&apos;re here to ensure your digital identity remains secure in an increasingly connected world.
           </p>
           <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto text-center">
             <div className="bg-black/30 backdrop-blur-md p-6 rounded-xl">
