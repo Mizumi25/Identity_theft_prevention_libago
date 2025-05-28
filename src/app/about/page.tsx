@@ -487,7 +487,7 @@ export default function About() {
               </h2>
               <div className="space-y-6 text-lg font-light">
                 <p className="text-gray-200 leading-relaxed">
-                  As a BSIT student at GCC, I've developed expertise in both frontend and backend technologies, with a passion for creating modern, responsive designs.
+                  As a BSIT student at GCC, I&apos;ve developed expertise in both frontend and backend technologies, with a passion for creating modern, responsive designs.
                 </p>
                 <p className="text-gray-200 leading-relaxed">
                   My art name Mizumi Kaito represents my creative side where I explore digital art and design.
