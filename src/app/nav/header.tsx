@@ -14,49 +14,49 @@ const HackerMenu = () => {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const menuItems = [
-    { 
-      name: 'HOME', 
-      image: 'https://picsum.photos/400/600?random=1',
-      desc: 'Digital Fortress - Your secure digital identity sanctuary',
-      path: '/'
-    },
-    { 
-      name: 'REPORT', 
-      image: 'https://picsum.photos/400/600?random=2',
-      desc: 'Data Breach Analytics - Visual threat intelligence report',
-      path: '/report'
-    },
-    { 
-      name: 'TYPES', 
-      image: 'https://picsum.photos/400/600?random=3',
-      desc: 'Threat Taxonomy - Classification of digital predators',
-      path: '/types'
-    },
-    { 
-      name: 'ABOUT', 
-      image: 'https://picsum.photos/400/600?random=4',
-      desc: 'Mission Control - Digital guardians behind the firewall',
-      path: '/about'
-    },
-    { 
-      name: 'CONTACT', 
-      image: 'https://picsum.photos/400/600?random=5',
-      desc: 'Secure Channel - Encrypted communication portal',
-      path: '/contact'
-    },
-    { 
-      name: 'PREVENTION', 
-      image: 'https://picsum.photos/400/600?random=6',
-      desc: 'Defense Matrix - Advanced protection protocols',
-      path: '/prevention'
-    },
-    { 
-      name: 'RESOURCES', 
-      image: 'https://picsum.photos/400/600?random=7',
-      desc: 'Knowledge Vault - Classified intel and tools arsenal',
-      path: '/resources'
-    }
-  ];
+  { 
+    name: 'HOME', 
+    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=600&q=80',
+    desc: 'Digital Fortress - Your secure digital identity sanctuary',
+    path: '/'
+  },
+  { 
+    name: 'REPORT', 
+    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=600&q=80',
+    desc: 'Data Breach Analytics - Visual threat intelligence report',
+    path: '/report'
+  },
+  { 
+    name: 'TYPES', 
+    image: 'https://images.unsplash.com/photo-1563206767-5b18f218e8de?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=600&q=80',
+    desc: 'Threat Taxonomy - Classification of digital predators',
+    path: '/types'
+  },
+  { 
+    name: 'ABOUT', 
+    image: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=600&q=80',
+    desc: 'Mission Control - Digital guardians behind the firewall',
+    path: '/about'
+  },
+  { 
+    name: 'CONTACT', 
+    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=600&q=80',
+    desc: 'Secure Channel - Encrypted communication portal',
+    path: '/contact'
+  },
+  { 
+    name: 'PREVENTION', 
+    image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=600&q=80',
+    desc: 'Defense Matrix - Advanced protection protocols',
+    path: '/prevention'
+  },
+  { 
+    name: 'RESOURCES', 
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=600&q=80',
+    desc: 'Knowledge Vault - Classified intel and tools arsenal',
+    path: '/resources'
+  }
+];
 
   const socialIcons = [
     { icon: Github, url: 'https://github.com' },
