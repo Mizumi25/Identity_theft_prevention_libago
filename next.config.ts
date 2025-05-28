@@ -6,11 +6,21 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "images.unsplash.com",
-        // Allow all paths under this domain
-        pathname: "/**",  
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+        pathname: "/**",
       },
     ],
   },
+  // Optional: Add if you need other image providers
+  // experimental: {
+  //   images: {
+  //     allowFutureImage: true,
+  //   },
+  // },
 };
 
 export default nextConfig;
