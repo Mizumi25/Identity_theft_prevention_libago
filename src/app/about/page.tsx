@@ -1,7 +1,3 @@
-
-
-
-
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -150,30 +146,28 @@ export default function About() {
     laptopScreen.rotation.x = -Math.PI * 0.08;
     laptopGroup.add(laptopScreen);
 
-    /// Screen display with coding content
-const screenDisplayGeometry = new THREE.PlaneGeometry(7, 4.5);
-const canvas = document.createElement('canvas');
-canvas.width = 1024;
-canvas.height = 640;
-const ctx = canvas.getContext('2d');
+    // Screen display with coding content
+    const screenDisplayGeometry = new THREE.PlaneGeometry(7, 4.5);
+    const canvas = document.createElement('canvas');
+    canvas.width = 1024;
+    canvas.height = 640;
+    const ctx = canvas.getContext('2d');
 
-if (!ctx) {
-  throw new Error('Could not get canvas context');
-}
+    if (!ctx) {
+      throw new Error('Could not get canvas context');
+    }
 
-// Draw terminal/coding background
-ctx.fillStyle = '#0a0a0a';
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Draw terminal/coding background
+    ctx.fillStyle = '#0a0a0a';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-// Add terminal header
-ctx.fillStyle = '#333333';
-ctx.fillRect(0, 0, canvas.width, 40);
-ctx.fillStyle = '#ffffff';
-ctx.font = '14px Monaco, monospace';
-ctx.fillText('Terminal - Identity Protection System', 20, 25);
+    // Add terminal header
+    ctx.fillStyle = '#333333';
+    ctx.fillRect(0, 0, canvas.width, 40);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '14px Monaco, monospace';
+    ctx.fillText('Terminal - Mizumi Kaito Digital Studio', 20, 25);
 
-
-    
     // Add terminal dots
     ctx.fillStyle = '#ff5f56';
     ctx.beginPath();
@@ -192,23 +186,26 @@ ctx.fillText('Terminal - Identity Protection System', 20, 25);
     
     // Add code content
     const codeLines = [
-      '> identity-shield --monitor --verbose',
+      '> portfolio --show --creative',
       '',
-      'Scanning for identity threats...',
-      'Dark web monitoring: ACTIVE',
-      'Credit monitoring: ENABLED',
-      'Social media scanning: RUNNING',
+      'Loading creative portfolio...',
+      'Digital Art: ACTIVE',
+      'Web Development: ENABLED',
+      'Language Learning: RUNNING',
       '',
-      'class IdentityProtector {',
+      'class MizumiKaito {',
       '  constructor() {',
-      '    this.threats = [];',
-      '    this.shields = new Map();',
+      '    this.skills = ["React", "Next.js", "Laravel"];',
+      '    this.art = new DigitalArt();',
+      '    this.languages = ["Japanese"];',
       '  }',
       '',
-      '  async scanForThreats() {',
-      '    const darkWebData = await this.scanDarkWeb();',
-      '    const breachData = await this.checkBreaches();',
-      '    return this.analyzeRisk(darkWebData, breachData);',
+      '  createProject() {',
+      '    return this.art.combineWith(this.code);',
+      '  }',
+      '',
+      '  learnLanguage(lang) {',
+      '    this.languages.push(lang);',
       '  }',
       '}'
     ];
@@ -217,9 +214,9 @@ ctx.fillText('Terminal - Identity Protection System', 20, 25);
     ctx.font = '12px Monaco, monospace';
     let y = 70;
     codeLines.forEach(line => {
-      if (line.includes('class') || line.includes('async')) {
+      if (line.includes('class') || line.includes('createProject')) {
         ctx.fillStyle = '#ff6b9d';
-      } else if (line.includes('this.') || line.includes('await')) {
+      } else if (line.includes('this.') || line.includes('new')) {
         ctx.fillStyle = '#4ecdc4';
       } else if (line.startsWith('>')) {
         ctx.fillStyle = '#ffd93d';
@@ -286,7 +283,6 @@ ctx.fillText('Terminal - Identity Protection System', 20, 25);
     laptopRef.current = laptopGroup;
 
     // Animation loop
-    
     const animate = () => {
       requestAnimationFrame(animate);
       
@@ -354,34 +350,33 @@ ctx.fillText('Terminal - Identity Protection System', 20, 25);
         }
         
         // Check if USB is connected
-
-if (easeProgress > 0.85 && !isConnected) {
-  setIsConnected(true);
-  
-  // Find screen and enhance it
-  const screenDisplay = laptopRef.current.children.find(child => {
-    const mesh = child as THREE.Mesh;
-    return mesh.material && 'map' in mesh.material;
-  });
-  
-  if (screenDisplay) {
-    const mesh = screenDisplay as THREE.Mesh<THREE.BufferGeometry, THREE.MeshPhongMaterial>;
-    mesh.material.emissive.setHex(0x0044ff);
-    mesh.material.emissiveIntensity = 0.3;
-  }
-  
-  // LED becomes brighter when connected
-  const ledMesh = usbRef.current.children.find(child => {
-    const mesh = child as THREE.Mesh;
-    return mesh.material && 'emissive' in mesh.material && mesh.geometry.type === 'SphereGeometry';
-  });
-  
-  if (ledMesh) {
-    const mesh = ledMesh as THREE.Mesh<THREE.BufferGeometry, THREE.MeshPhongMaterial>;
-    mesh.material.emissiveIntensity = 1.5;
-    mesh.material.emissive.setHex(0x00ffff);
-  }
-}
+        if (easeProgress > 0.85 && !isConnected) {
+          setIsConnected(true);
+          
+          // Find screen and enhance it
+          const screenDisplay = laptopRef.current.children.find(child => {
+            const mesh = child as THREE.Mesh;
+            return mesh.material && 'map' in mesh.material;
+          });
+          
+          if (screenDisplay) {
+            const mesh = screenDisplay as THREE.Mesh<THREE.BufferGeometry, THREE.MeshPhongMaterial>;
+            mesh.material.emissive.setHex(0x0044ff);
+            mesh.material.emissiveIntensity = 0.3;
+          }
+          
+          // LED becomes brighter when connected
+          const ledMesh = usbRef.current.children.find(child => {
+            const mesh = child as THREE.Mesh;
+            return mesh.material && 'emissive' in mesh.material && mesh.geometry.type === 'SphereGeometry';
+          });
+          
+          if (ledMesh) {
+            const mesh = ledMesh as THREE.Mesh<THREE.BufferGeometry, THREE.MeshPhongMaterial>;
+            mesh.material.emissiveIntensity = 1.5;
+            mesh.material.emissive.setHex(0x00ffff);
+          }
+        }
       }
       
       renderer.render(scene, camera);
@@ -422,14 +417,14 @@ if (easeProgress > 0.85 && !isConnected) {
 
   return (
     <div className="bg-black text-white relative">
-      {/* Glassmorphism background elements - moved FIRST in DOM order */}
+      {/* Glassmorphism background elements */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-blue-900/20 backdrop-blur-3xl filter blur-3xl"></div>
         <div className="absolute top-1/3 right-1/3 w-96 h-96 rounded-full bg-cyan-500/10 backdrop-blur-3xl filter blur-3xl"></div>
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-purple-900/15 backdrop-blur-3xl filter blur-3xl"></div>
       </div>
 
-      {/* 3D Hero Section - now with higher z-index */}
+      {/* 3D Hero Section */}
       <div className="fixed inset-0 z-10">
         <div ref={mountRef} className="w-full h-full" />
       </div>
@@ -438,11 +433,11 @@ if (easeProgress > 0.85 && !isConnected) {
       <section className="relative z-10 min-h-screen flex items-center justify-center px-4">
         <div className="text-center max-w-4xl">
           <h1 className="text-6xl md:text-8xl font-extralight mb-8 tracking-tighter">
-            About Us
+            Mizumi Kaito
           </h1>
           <div className="p-8 bg-black/30 backdrop-blur-lg rounded-xl">
             <p className="text-xl md:text-2xl leading-relaxed font-light">
-              Protecting digital identities through advanced technology and human expertise.
+              Digital Artist & Full Stack Developer creating modern digital experiences
             </p>
           </div>
         </div>
@@ -454,66 +449,69 @@ if (easeProgress > 0.85 && !isConnected) {
           <div className="mb-8">
             <div className="inline-block bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
               <h2 className="text-4xl md:text-6xl font-extralight mb-4 tracking-tighter">
-                Connection Established
+                Creative Connection
               </h2>
             </div>
             <div className="w-32 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-400 mx-auto mb-8"></div>
           </div>
           <h3 className="text-3xl md:text-4xl font-extralight mb-8 text-white tracking-tight">
-            Our Story Begins Here
+            Where Art Meets Technology
           </h3>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light">
-            Every digital connection carries risk. Every data breach changes lives. 
-            We&apos;re here to ensure your digital identity remains secure in an increasingly connected world.
+            I blend modern design aesthetics with cutting-edge web technologies to create unique digital experiences.
           </p>
           <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto text-center">
             <div className="bg-black/30 backdrop-blur-md p-6 rounded-xl">
-              <div className="text-2xl font-extralight text-blue-400 mb-2">24/7</div>
-              <div className="text-sm text-gray-400 tracking-wider">MONITORING</div>
+              <div className="text-2xl font-extralight text-blue-400 mb-2">Digital</div>
+              <div className="text-sm text-gray-400 tracking-wider">ARTIST</div>
             </div>
             <div className="bg-black/30 backdrop-blur-md p-6 rounded-xl">
-              <div className="text-2xl font-extralight text-cyan-400 mb-2">Real-time</div>
-              <div className="text-sm text-gray-400 tracking-wider">ALERTS</div>
+              <div className="text-2xl font-extralight text-cyan-400 mb-2">Full Stack</div>
+              <div className="text-sm text-gray-400 tracking-wider">DEVELOPER</div>
             </div>
             <div className="bg-black/30 backdrop-blur-md p-6 rounded-xl">
-              <div className="text-2xl font-extralight text-blue-300 mb-2">Advanced</div>
-              <div className="text-sm text-gray-400 tracking-wider">PROTECTION</div>
+              <div className="text-2xl font-extralight text-blue-300 mb-2">Creative</div>
+              <div className="text-sm text-gray-400 tracking-wider">THINKER</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Mission Section */}
+      {/* Skills Section */}
       <section className="relative z-10 min-h-screen flex items-center px-4 py-20">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-4xl md:text-5xl font-extralight mb-8 text-white tracking-tighter">
-                Our Mission
+                My Skills
               </h2>
               <div className="space-y-6 text-lg font-light">
                 <p className="text-gray-200 leading-relaxed">
-                  In an era where digital identity theft affects millions annually, we stand as guardians of personal data integrity.
+                  As a BSIT student at GCC, I've developed expertise in both frontend and backend technologies, with a passion for creating modern, responsive designs.
                 </p>
                 <p className="text-gray-200 leading-relaxed">
-                  Our mission is simple: eliminate identity theft through prevention, education, and cutting-edge monitoring technology.
+                  My art name Mizumi Kaito represents my creative side where I explore digital art and design.
                 </p>
               </div>
             </div>
             <div className="bg-gray-900/40 backdrop-blur-lg p-8 rounded-xl">
-              <h3 className="text-2xl font-extralight mb-6 text-white tracking-tight">By The Numbers</h3>
+              <h3 className="text-2xl font-extralight mb-6 text-white tracking-tight">Technical Stack</h3>
               <div className="space-y-4 text-sm font-mono">
                 <div className="flex justify-between py-2 border-b border-gray-800">
-                  <span className="text-gray-400">Annual Victims:</span>
-                  <span className="text-white">14.4M+</span>
+                  <span className="text-gray-400">Frontend:</span>
+                  <span className="text-white">React, Next.js, Tailwind</span>
                 </div>
                 <div className="flex justify-between py-2 border-b border-gray-800">
-                  <span className="text-gray-400">Financial Impact:</span>
-                  <span className="text-white">$56B+</span>
+                  <span className="text-gray-400">Backend:</span>
+                  <span className="text-white">Laravel, Livewire, Filament</span>
+                </div>
+                <div className="flex justify-between py-2 border-b border-gray-800">
+                  <span className="text-gray-400">Databases:</span>
+                  <span className="text-white">MySQL, MongoDB, SQLite</span>
                 </div>
                 <div className="flex justify-between py-2">
-                  <span className="text-gray-400">Recovery Time:</span>
-                  <span className="text-white">6+ months</span>
+                  <span className="text-gray-400">Learning:</span>
+                  <span className="text-white">React Native, Angular, Japanese</span>
                 </div>
               </div>
             </div>
@@ -521,125 +519,74 @@ if (easeProgress > 0.85 && !isConnected) {
         </div>
       </section>
 
-      {/* Team Section */}
+      {/* Projects Section */}
       <section className="relative z-10 min-h-screen flex items-center px-4 py-20 bg-gradient-to-b from-gray-900/50 to-black/70">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-extralight mb-16 text-center text-white tracking-tighter">
-            Our Team
+            My Work
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-black/30 backdrop-blur-lg p-8 rounded-xl hover:bg-gray-900/50 transition-all">
-              <h3 className="text-2xl font-extralight mb-4 text-white tracking-tight">Security Analysts</h3>
+              <h3 className="text-2xl font-extralight mb-4 text-white tracking-tight">Digital Art</h3>
               <p className="text-gray-300 leading-relaxed mb-4 font-light">
-                Former government cybersecurity specialists with deep knowledge of threat landscapes and criminal methodologies.
+                Creating modern digital artwork under my artist name Mizumi Kaito.
               </p>
               <div className="text-sm text-gray-400 space-y-1">
-                <p>• Threat Intelligence</p>
-                <p>• Digital Forensics</p>
-                <p>• Risk Assessment</p>
+                <p>• YouTube: @mizumikaito</p>
+                <p>• Instagram: @mizukai025</p>
+                <p>• Twitter: @mizu_kai25</p>
               </div>
             </div>
             <div className="bg-black/30 backdrop-blur-lg p-8 rounded-xl hover:bg-gray-900/50 transition-all">
-              <h3 className="text-2xl font-extralight mb-4 text-white tracking-tight">Data Scientists</h3>
+              <h3 className="text-2xl font-extralight mb-4 text-white tracking-tight">Web Development</h3>
               <p className="text-gray-300 leading-relaxed mb-4 font-light">
-                Machine learning experts developing predictive models to identify and prevent identity theft before it occurs.
+                Full stack projects using modern frameworks and technologies.
               </p>
               <div className="text-sm text-gray-400 space-y-1">
-                <p>• Anomaly Detection</p>
-                <p>• Predictive Analytics</p>
-                <p>• Pattern Recognition</p>
+                <p>• React/Next.js applications</p>
+                <p>• Laravel backend systems</p>
+                <p>• Responsive UI/UX design</p>
               </div>
             </div>
             <div className="bg-black/30 backdrop-blur-lg p-8 rounded-xl hover:bg-gray-900/50 transition-all">
-              <h3 className="text-2xl font-extralight mb-4 text-white tracking-tight">Legal Advisors</h3>
+              <h3 className="text-2xl font-extralight mb-4 text-white tracking-tight">Learning</h3>
               <p className="text-gray-300 leading-relaxed mb-4 font-light">
-                Privacy law specialists and victim advocates ensuring comprehensive protection and recovery support.
+                Continuously expanding my skills in development and languages.
               </p>
               <div className="text-sm text-gray-400 space-y-1">
-                <p>• Privacy Law</p>
-                <p>• Victim Support</p>
-                <p>• Legal Recovery</p>
+                <p>• Mobile development</p>
+                <p>• Japanese language</p>
+                <p>• New web technologies</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Technology Section */}
+      {/* Contact Section */}
       <section className="relative z-10 min-h-screen flex items-center px-4 py-20">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-extralight mb-16 text-center text-white tracking-tighter">
-            Technology Stack
-          </h2>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
-              <div className="bg-gray-900/40 backdrop-blur-lg p-6 rounded-xl">
-                <h3 className="text-2xl font-extralight mb-4 text-white tracking-tight">AI Monitoring</h3>
-                <p className="text-gray-300 leading-relaxed font-light">
-                  24/7 artificial intelligence systems continuously scan for compromised data across dark web networks and breach databases.
-                </p>
-              </div>
-              <div className="bg-gray-900/40 backdrop-blur-lg p-6 rounded-xl">
-                <h3 className="text-2xl font-extralight mb-4 text-white tracking-tight">Real-time Alerts</h3>
-                <p className="text-gray-300 leading-relaxed font-light">
-                  Instant notification systems that alert you the moment your personal information appears in suspicious contexts.
-                </p>
-              </div>
-            </div>
-            <div className="bg-gray-900/40 backdrop-blur-lg p-8 rounded-xl">
-              <h3 className="text-2xl font-extralight mb-6 text-white tracking-tight">System Status</h3>
-              <div className="space-y-4 font-mono text-sm">
-                <div className="flex items-center justify-between py-2 border-b border-gray-800">
-                  <span className="text-gray-400">Threat Detection:</span>
-                  <span className="text-green-400">● Active</span>
-                </div>
-                <div className="flex items-center justify-between py-2 border-b border-gray-800">
-                  <span className="text-gray-400">AI Monitoring:</span>
-                  <span className="text-green-400">● Running</span>
-                </div>
-                <div className="flex items-center justify-between py-2 border-b border-gray-800">
-                  <span className="text-gray-400">Alert System:</span>
-                  <span className="text-green-400">● Online</span>
-                </div>
-                <div className="flex items-center justify-between py-2">
-                  <span className="text-gray-400">Encryption:</span>
-                  <span className="text-green-400">● AES-256</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Values Section */}
-      <section className="relative z-10 min-h-screen flex items-center px-4 py-20 bg-gradient-to-b from-black/70 to-gray-900/50">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-extralight mb-16 text-white tracking-tighter">
-            Our Values
+            Get In Touch
           </h2>
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="bg-black/30 backdrop-blur-lg p-6 rounded-xl hover:bg-gray-900/50 transition-all">
-              <h3 className="text-xl font-extralight mb-4 text-white tracking-tight">Vigilance</h3>
+          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="bg-gray-900/40 backdrop-blur-lg p-6 rounded-xl">
+              <h3 className="text-xl font-extralight mb-4 text-white tracking-tight">Email</h3>
               <p className="text-gray-300 text-sm font-light">
-                Constant monitoring and proactive threat detection to stay ahead of cybercriminals.
+                Mizumikaitoart@gmail.com
               </p>
             </div>
-            <div className="bg-black/30 backdrop-blur-lg p-6 rounded-xl hover:bg-gray-900/50 transition-all">
-              <h3 className="text-xl font-extralight mb-4 text-white tracking-tight">Transparency</h3>
+            <div className="bg-gray-900/40 backdrop-blur-lg p-6 rounded-xl">
+              <h3 className="text-xl font-extralight mb-4 text-white tracking-tight">Social Media</h3>
               <p className="text-gray-300 text-sm font-light">
-                Clear, honest communication about threats, risks, and protection methods.
+                @mizukai025 (Instagram)<br/>
+                @mizu_kai25 (Twitter)
               </p>
             </div>
-            <div className="bg-black/30 backdrop-blur-lg p-6 rounded-xl hover:bg-gray-900/50 transition-all">
-              <h3 className="text-xl font-extralight mb-4 text-white tracking-tight">Innovation</h3>
+            <div className="bg-gray-900/40 backdrop-blur-lg p-6 rounded-xl">
+              <h3 className="text-xl font-extralight mb-4 text-white tracking-tight">YouTube</h3>
               <p className="text-gray-300 text-sm font-light">
-                Cutting-edge technology to outpace evolving criminal tactics and methods.
-              </p>
-            </div>
-            <div className="bg-black/30 backdrop-blur-lg p-6 rounded-xl hover:bg-gray-900/50 transition-all">
-              <h3 className="text-xl font-extralight mb-4 text-white tracking-tight">Empowerment</h3>
-              <p className="text-gray-300 text-sm font-light">
-                Education and tools to make individuals their own first line of defense.
+                youtube.com/@mizumikaito
               </p>
             </div>
           </div>
